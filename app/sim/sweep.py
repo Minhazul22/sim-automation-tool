@@ -34,3 +34,27 @@ def score_metrics(metrics: dict[str, Any]) -> float:
     # Weighted sum of performance indicators
     # NOTE: weights are heuristic and can be tuned per application
     return iae + 50.0 * overshoot + 2.0 * settling_value + settling_penalty
+
+def run_sweep(
+    setpoint: float,
+    kp_values: list[float],
+    ki_values: list[float],
+    kd_values: list[float],
+    params: SimParams,
+    top_k: int = 5,
+) -> dict[str, Any]:
+    """
+    Perform a brute-force PID parameter sweep.
+
+    For each (kp, ki, kd) combination:
+    - Run the thermal simulation
+    - Compute performance metrics
+    - Convert metrics into a single scalar score
+
+    The best-performing controllers are returned, sorted by score.
+
+    This function is designed to support:
+    - automated controller tuning
+    - design space exploration
+    - batch simulation workflows
+    """
