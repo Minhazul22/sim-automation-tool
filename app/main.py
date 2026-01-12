@@ -2,15 +2,14 @@ from fastapi import FastAPI
 
 from app.api.routes import router
 
-# Create FastAPI application instance
-# This application exposes REST endpoints for:
-# - running single thermal PID simulations
-# - performing automated PID parameter sweeps
+# Main FastAPI app for the simulation tool.
+# Exposes endpoints to run thermal PID simulations
+# and to sweep controller parameters for tuning.
 app = FastAPI(
     title="Simulation Automation Tool",
     version="0.1.0",
 )
 
-# Register API routes defined in app/api/routes.py
-# Using a router keeps the application modular and scalable
+# Attach all API routes.
+# Keeping routes in a separate module makes the app easier to extend.
 app.include_router(router)
