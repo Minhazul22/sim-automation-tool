@@ -92,3 +92,12 @@ def run_sweep(
                 "final_u": float(out["u"][-1]),
             }
         )
+    # Sort all tested controllers by performance (best first)
+    results.sort(key=lambda r: r["score"])
+
+    return {
+        "tested": tested,
+        "top_k": top_k,
+        "model_params": asdict(params),
+        "best": results[:top_k],
+    }
