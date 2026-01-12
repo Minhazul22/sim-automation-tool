@@ -60,3 +60,35 @@ def run_sweep(
     """
     results: list[dict[str, Any]] = []
     tested = 0
+     # Iterate over all gain combinations
+    for kp, ki, kd in itertools.product(kp_values, ki_values, kd_values):
+        tested += 1
+
+        # Create PID controller instance
+        pid = PID(kp=kp, ki=ki, kd=kd)
+
+        # Run closed-loop thermal simulation
+        out = run_pid_thermal(
+            setpoint=setpoint,
+            pid=pid,
+            p=params,
+        )
+
+        # Compute control performance metrics
+        m = compute_metrics(out["t"], out["T"], setpoint=setpoint)
+
+        # Convert metrics to a scalar score
+        s = score_metrics(m)
+
+        # Store result for ranking and inspection
+        results.append(
+            {
+                "kp": kp,
+                "ki": ki,
+                "kd": kd,
+                "score": float(s),
+                "metrics": m,
+                "final_T": float(out["T"][-1]),
+                "final_u": float(out["u"][-1]),
+            }
+        )
