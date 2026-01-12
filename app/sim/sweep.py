@@ -58,3 +58,5 @@ def run_sweep(
     - design space exploration
     - batch simulation workflows
     """
+    results: list[dict[str, Any]] = []
+    tested = 0
