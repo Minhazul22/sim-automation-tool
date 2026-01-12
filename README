@@ -1,0 +1,24 @@
+# Simulation Automation Tool
+
+This project is a small simulation and automation tool for exploring
+PID control of a simple thermal system.
+
+It provides a REST API to run simulations, evaluate control performance,
+and experiment with controller parameters. A Jupyter notebook is included
+to demonstrate analysis and visualization.
+
+## Features
+- First-order thermal system model
+- PID controller with actuator limits and anti-windup
+- Performance metrics (overshoot, IAE, settling time)
+- Parameter sweep for controller tuning
+- Notebook-based plots and comparison
+
+## Tech Stack
+- Python
+- FastAPI
+- NumPy
+- Matplotlib
+- Jupyter Notebook
+
+## Project Structure
